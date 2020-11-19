@@ -3,12 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <title>Weather Dashboard</title>
+    <link rel="stylesheet" href="assets/css/style.css"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css" />
 </head>
 <body>
-    
+    <!--header-->
+    <nav class="navbar navbar-dark bg-dark">
+        <span id="header" class="navbar-brand mb-0 h1 w-100 text-center">Weather Dashboard</span>
+    </nav>
 
-<script src="assets/js/script.js"></script>
+    <div class="container m-0">
+        <div class="row">
+            <div class="col-4 bg-light p-3">
+                <!--search bar-->
+                <h4>Search for a City:</h4>
+                <div class="input-group mb-3">
+                    <input id="searchbar" type="text" class="form-control" >
+                    <div class="input-group-append">
+                        <button id="submit" type="button" class="btn btn-primary">
+                            <span class="oi oi-magnifying-glass"></span>
+                        </button>
+                    </div>
+                  </div>
+                <!--search history-->
+                <form class="search-history"></form>
+            </div>
+            <!--weather-->
+            <div class="col-8">
+                <div class="row mr-0">
+                    <!--weather stats-->
+                    <div class="col-12 border border-dark rounded m-3 p-4">
+                        <div class="row">
+                            <div class="col-12">
+                                <h1 class="city-name p-1" style="font-size:30px">City: <strong id="city"></strong>&#9925</h1>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <h5 id="temperature" class="temp font-weight-normal p-1">Temperature: </h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <h5 id="humidity" class="humidity font-weight-normal p-1">Humidity: </h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <h5 id="wind" class="wind font-weight-normal p-1">Wind Speed: </h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <h5 class="uv font-weight-normal p-1">UV Index: <strong class=" btn btn-danger" id="uvIndex"></strong></h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--weather forecast-->
+                <div class="row">
+                    <div class="col-12">
+                        <h4>5-Day Forecast:</h4>
+                    </div>
+                </div>
+                <div id="fiveDay" class="row">
+
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="./assets/js/script.js"></script>
 </body>
 </html>
