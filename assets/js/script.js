@@ -1,6 +1,9 @@
 const apiKey = "15ab498b9b61f3937a6af9f325c6b2e5";
 
-const savedStuff = localStorage.getItem("whatever") || []
+document.cookie = "promo_shown=1; Max-Age=2600000; Secure"
+"promo_shown=1; Max-Age=2600000; Secure"
+
+const searchHistory = localStorage.getItem("searchedCities") || [];
 
 
 var displayWeather = function() {
@@ -18,29 +21,45 @@ var displayWeather = function() {
         }).then(function(feedback){
             //current weather
             console.log(feedback);
-            $("#city").append(initial.name + " " + "(" + (moment().format('L')) + ")");
+            $("#city").prepend(initial.name + " " + "(" + (moment().format('L')) + ")" );
+            $("#wIcon").attr("src", "http://openweathermap.org/img/wn/" + initial.weather[0].icon + ".png");
             $("#temperature").append(initial.main.temp + "°F");
             $("#humidity").append(initial.main.humidity + "%");
             $("#wind").append(initial.wind.speed + " MPH");
             $("#uvIndex").append(feedback.current.uvi);
 
+            if(feedback.current.uvi >= 0 && feedback.current.uvi <= 2) {
+                $("#uvIndex").addClass(" btn btn-success");
+            }
+
+            if(feedback.current.uvi >= 3 && feedback.current.uvi <= 7) {
+                $("#uvIndex").addClass("btn btn-warning");
+            }
+
+            if(feedback.current.uvi >= 8) {
+                $("#uvIndex").addClass("btn btn-danger");
+            }
+
             //five day forecast
-            for(i=0;i<5;i++){
+            for(i=1;i<5;i++){
                 $("#fiveDay").append(`
                 <div class="col card text-white bg-primary ml-2 mb-3 mt-2 p-2 rounded text-left">
                 <div class="card-text">
-                        <h6 id="date" class="font-weight-bold"> ${feedback.daily[i].dt} </h6>
+                        <h6 class="font-weight-bold"> ${moment(feedback.daily[i].dt * 1000).format("L")} </h6>
                 </div>
                 <div class="card-body p-2">
-                    <p class="card-text">${feedback.daily[i].weather.weather[i].icon}</p>
+                    <p class="card-text"><img id="wicon" src="">${$("#wicon").attr("src", "http://openweathermap.org/img/wn/" + feedback.daily[i].weather[0].icon + ".png")}</p>
                     <p class="card-text">Temp: ${feedback.daily[i].temp.day} °F </p>
                     <p class="card-text">Humidity: ${feedback.daily[i].humidity}%</p>
                 </div>
               </div>
               `)
             }
-        })
+        })       
     })
 }
+
+
+
 
 $("#submit").on("click",displayWeather)
