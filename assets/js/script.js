@@ -28,11 +28,11 @@ var displayWeather = function() {
             $("#wind").append(initial.wind.speed + " MPH");
             $("#uvIndex").append(feedback.current.uvi);
 
-            if(feedback.current.uvi >= 0 && feedback.current.uvi <= 2) {
+            if(feedback.current.uvi >= 0 && feedback.current.uvi < 3) {
                 $("#uvIndex").addClass(" btn btn-success");
             }
 
-            if(feedback.current.uvi >= 3 && feedback.current.uvi <= 7) {
+            if(feedback.current.uvi >= 3 && feedback.current.uvi < 8) {
                 $("#uvIndex").addClass("btn btn-warning");
             }
 
@@ -48,7 +48,7 @@ var displayWeather = function() {
                         <h6 class="font-weight-bold"> ${moment(feedback.daily[i].dt * 1000).format("L")} </h6>
                 </div>
                 <div class="card-body p-2">
-                    <p class="card-text"><img id="wicon" src="">${$("#wicon").attr("src", "http://openweathermap.org/img/wn/" + feedback.daily[i].weather[0].icon + ".png")}</p>
+                    <p class="card-text"><img id="wicon" src="${'http://openweathermap.org/img/wn/' + feedback.daily[i].weather[0].icon + '.png'}"></p>
                     <p class="card-text">Temp: ${feedback.daily[i].temp.day} °F </p>
                     <p class="card-text">Humidity: ${feedback.daily[i].humidity}%</p>
                 </div>

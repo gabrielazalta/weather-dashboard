@@ -1,7 +1,7 @@
 # Weather Dashboard
 
 ## Purpose
-Prepare you travels and be informed by using this dashboard to see the weather outlook fro multiple cities.
+Prepare you travels and be informed by using this dashboard to see a 5-day weather forecast for any city around the world.
 
 ## Built With
 * HTML
@@ -9,6 +9,7 @@ Prepare you travels and be informed by using this dashboard to see the weather o
 * JavaScript
 * Moment.js
 * JQuery
+* Bootstrap
 
 ## Website
 https://gabrielazalta.github.io/weather-dashboard/
