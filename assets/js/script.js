@@ -5,10 +5,36 @@ document.cookie = "promo_shown=1; Max-Age=2600000; Secure"
 
 const searchHistory = JSON.parse(localStorage.getItem("history")) || [];
 
-//function to display weather stats
-var displayWeather = function() {
-    let cityName = document.querySelector("#searchbar").value
 
+$("#searchContainer").on("click", function(event) {
+
+    var clearInfoSearch = function () {
+        $("#city").html("<img id=\"wIcon\" src=\"\"/>");
+        $("#temperature").text("Temperature: ");
+        $("#humidity").text("Humidity: ");
+        $("#wind").text("Wind Speed: ");
+        $("#uvIndex").empty();
+        $("#fiveDay").empty();
+        $("#searchbar").empty();
+    
+        displayWeather(event.target.textContent);
+    };
+
+     if(event.target.id === "cityButton") {
+        clearInfoSearch(); 
+     }
+});
+
+//function to display weather stats
+var displayWeather = function(passCityName) {
+
+   let cityName = passCityName
+
+    if(cityName == undefined) {
+        cityName = document.querySelector("#searchbar").value
+    }
+
+    
     //save search history to local storage
     searchHistory.push(cityName);
     let stringified_array = JSON.stringify(searchHistory); 
@@ -16,18 +42,14 @@ var displayWeather = function() {
 
     $("#searchBlock").empty();
     localStorage.removeItem("history");
-
-   for(var i=0; i < searchHistory.length; i++) {
-       $("#searchBlock").append(`
-           <div>
-               <button id="cityButton" type="button" class="btn btn-outline-dark btn-block">${searchHistory[i]}</button>  
-           </div>
-       `);
-   }
-
-   $("#cityButton").on("click", function(event) {
     
-   });
+    for(var i=0; i < searchHistory.length; i++) {
+        $("#searchBlock").append(`
+        <div>
+        <button id="cityButton" type="button" class="btn btn-outline-dark btn-block">${searchHistory[i]}</button>  
+        </div>
+        `);
+    }
 
    //current weather api
     const currentUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=imperial&appid=${apiKey}`;
@@ -36,13 +58,13 @@ var displayWeather = function() {
         url:currentUrl,
         method:"GET"
     }).then(function(initial){
-        console.log(initial);
+        //console.log(initial);
         $.ajax({
             url:`https://api.openweathermap.org/data/2.5/onecall?lat=${initial.coord.lat}&lon=${initial.coord.lon}&exclude=hourly,alerts,minutely&units=imperial&appid=${apiKey}`
         }).then(function(feedback){
 
             //current weather
-            console.log(feedback);
+           // console.log(feedback);
             $("#city").prepend(initial.name + " " + "(" + (moment().format('L')) + ")" );
             $("#wIcon").attr("src", "http://openweathermap.org/img/wn/" + initial.weather[0].icon + ".png");
             $("#temperature").append(initial.main.temp + "°F");
@@ -82,6 +104,9 @@ var displayWeather = function() {
     })
 }
 
+
+
+
 //clear displayed weather stats to display the new ones
 var clearInfo = function () {
     $("#city").html("<img id=\"wIcon\" src=\"\"/>");
@@ -94,6 +119,8 @@ var clearInfo = function () {
 
     displayWeather();
 };
+
+
 
 
 $("#submit").on("click",clearInfo);
