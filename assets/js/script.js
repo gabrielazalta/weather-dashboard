@@ -5,7 +5,6 @@ document.cookie = "promo_shown=1; Max-Age=2600000; Secure"
 
 const searchHistory = localStorage.getItem("searchedCity") || [];
 
-
 var displayWeather = function() {
 
     let cityName = document.querySelector("#searchbar").value
