@@ -74,14 +74,17 @@ var displayWeather = function(passCityName) {
 
             //set tcolor to UV Index
             if(feedback.current.uvi >= 0 && feedback.current.uvi < 3) {
+                $("#uvIndex").removeClass();
                 $("#uvIndex").addClass(" btn btn-success");
             }
 
             if(feedback.current.uvi >= 3 && feedback.current.uvi < 8) {
+                $("#uvIndex").removeClass();
                 $("#uvIndex").addClass("btn btn-warning");
             }
 
             if(feedback.current.uvi >= 8) {
+                $("#uvIndex").removeClass();
                 $("#uvIndex").addClass("btn btn-danger");
             }
 
