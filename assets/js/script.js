@@ -3,12 +3,21 @@ const apiKey = "15ab498b9b61f3937a6af9f325c6b2e5";
 document.cookie = "promo_shown=1; Max-Age=2600000; Secure"
 "promo_shown=1; Max-Age=2600000; Secure"
 
-const searchHistory = localStorage.getItem("searchedCities") || [];
+const searchHistory = localStorage.getItem("searchedCity") || [];
 
 
 var displayWeather = function() {
 
     let cityName = document.querySelector("#searchbar").value
+    
+   localStorage.setItem("searchedCity", cityName);
+
+    $("#searchBlock").append(`
+        <div>
+            <button id= "searchedItem type="button" class="btn btn-light">${searchHistory}</button>  
+        </div>
+    `)
+
     const currentUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=imperial&appid=${apiKey}`;
 
     $.ajax({
@@ -43,7 +52,7 @@ var displayWeather = function() {
             //five day forecast
             for(i=1;i<5;i++){
                 $("#fiveDay").append(`
-                <div class="col card text-white bg-primary ml-2 mb-3 mt-2 p-2 rounded text-left">
+                <div id ="card-body" class="col card text-white bg-primary ml-2 mb-3 mt-2 p-2 rounded text-left">
                 <div class="card-text">
                         <h6 class="font-weight-bold"> ${moment(feedback.daily[i].dt * 1000).format("L")} </h6>
                 </div>
@@ -57,9 +66,19 @@ var displayWeather = function() {
             }
         })       
     })
+    $("#submit").on("click",clearInfo);
 }
 
+var clearInfo = function () {
+    $("#city").hide();
+    $("#wIcon").hide();
+    $("#temperature").hide();
+    $("#humidity").hide();
+    $("#wind").hide();
+    $("#uvIndex").hide();
+    $("card-body").hide();
+};
 
 
 
-$("#submit").on("click",displayWeather)
+$("#submit").on("click",displayWeather);
