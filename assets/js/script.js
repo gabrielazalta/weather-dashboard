@@ -3,21 +3,26 @@ const apiKey = "15ab498b9b61f3937a6af9f325c6b2e5";
 document.cookie = "promo_shown=1; Max-Age=2600000; Secure"
 "promo_shown=1; Max-Age=2600000; Secure"
 
-const searchHistory = localStorage.getItem("searchedCity") || [];
+const searchHistory = localStorage.getItem("history") || [];
+JSON.parse(searchHistory);
 
 var displayWeather = function() {
 
-    let cityName = document.querySelector("#searchbar").value
-    
-   localStorage.setItem("searchedCity", cityName) || [];
+    searchHistory = []
+    searchHistory.push(newCity);
+    let stringified_array = JSON.stringify(searchHistory); 
+    localStorage.setItem("history", stringified_array);
 
-   for(var i=0; i < "searchedCity"; i++) {
+   for(var i=0; i < "history"; i++) {
        $("#searchBlock").append(`
            <div>
                <button type="button" class="btn btn-outline-dark btn-block">${searchHistory}</button>  
            </div>
        `);
    }
+
+    let cityName = document.querySelector("#searchbar").value
+    
 
     const currentUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=imperial&appid=${apiKey}`;
 
